@@ -1,0 +1,922 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Media Pembelajaran PAI: Iman Kepada Hari Akhir</title>
+    <style>
+        /* ==================== GLOBAL STYLES ==================== */
+        :root {
+            --primary-color: #1b4d3e;
+            --secondary-color: #d4af37;
+            --accent-color: #2e7d32;
+            --bg-color: #f4f7f6;
+            --card-bg: #ffffff;
+            --text-color: #2c3e50;
+            --border-radius: 12px;
+            --shadow: 0 4px 15px rgba(0,0,0,0.08);
+        }
+
+        body.dark-mode {
+            --bg-color: #121212;
+            --card-bg: #1e1e1e;
+            --text-color: #e0e0e0;
+            --shadow: 0 4px 15px rgba(0,0,0,0.4);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.6;
+            padding-bottom: 50px;
+        }
+
+        /* ==================== HEADER & NAV ==================== */
+        header {
+            background: linear-gradient(135deg, var(--primary-color), #0d2820);
+            color: white;
+            padding: 15px 20px;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo-area h1 {
+            font-size: 1.2rem;
+            color: var(--secondary-color);
+        }
+
+        .logo-area p {
+            font-size: 0.8rem;
+            opacity: 0.9;
+        }
+
+        .nav-controls button {
+            background: rgba(255,255,255,0.15);
+            border: 1px solid var(--secondary-color);
+            color: white;
+            padding: 8px 12px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 0.85rem;
+        }
+
+        /* ==================== PROGRESS BAR ==================== */
+        .progress-container {
+            width: 100%;
+            background-color: #e0e0e0;
+            height: 6px;
+            position: sticky;
+            top: 60px;
+            z-index: 999;
+        }
+
+        .progress-bar {
+            height: 6px;
+            background-color: var(--secondary-color);
+            width: 0%;
+            transition: width 0.3s;
+        }
+
+        /* ==================== CONTAINER & NAVIGATION ==================== */
+        .container {
+            max-width: 900px;
+            margin: 20px auto;
+            padding: 0 15px;
+        }
+
+        .main-menu {
+            display: flex;
+            gap: 8px;
+            overflow-x: auto;
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+            border-bottom: 2px solid #ddd;
+        }
+
+        .menu-btn {
+            background-color: var(--card-bg);
+            color: var(--text-color);
+            border: 1px solid #ccc;
+            padding: 10px 16px;
+            border-radius: 20px;
+            cursor: pointer;
+            white-space: nowrap;
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+
+        .menu-btn.active {
+            background-color: var(--primary-color);
+            color: white;
+            border-color: var(--primary-color);
+        }
+
+        /* ==================== SECTIONS ==================== */
+        .section {
+            display: none;
+            background: var(--card-bg);
+            padding: 25px;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+            animation: fadeIn 0.4s ease-in-out;
+        }
+
+        .section.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* ==================== CARDS & ACCORDION ==================== */
+        .hero-card {
+            text-align: center;
+            background: linear-gradient(135deg, rgba(27,77,62,0.05), rgba(212,175,55,0.1));
+            padding: 30px 20px;
+            border-radius: var(--border-radius);
+            border: 2px solid var(--secondary-color);
+            margin-bottom: 20px;
+        }
+
+        .tab-buttons {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 15px;
+            flex-wrap: wrap;
+        }
+
+        .tab-btn {
+            padding: 8px 15px;
+            background: #eee;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 0.85rem;
+        }
+
+        .tab-btn.active {
+            background: var(--primary-color);
+            color: white;
+        }
+
+        .tab-content {
+            display: none;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        .arabic-text {
+            font-size: 1.4rem;
+            text-align: right;
+            font-family: 'Traditional Arabic', 'Amiri', serif;
+            color: var(--primary-color);
+            margin: 10px 0;
+            line-height: 1.8;
+        }
+
+        /* ==================== INTERACTIVE EXPLORATION ==================== */
+        .drag-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin-top: 15px;
+        }
+
+        @media (max-width: 600px) {
+            .drag-container { grid-template-columns: 1fr; }
+        }
+
+        .drop-zone {
+            border: 2px dashed var(--primary-color);
+            padding: 15px;
+            min-height: 150px;
+            border-radius: 8px;
+            background: rgba(0,0,0,0.02);
+        }
+
+        .drag-item {
+            background: var(--primary-color);
+            color: white;
+            padding: 8px 12px;
+            margin: 5px 0;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 0.85rem;
+        }
+
+        /* ==================== QUIZ STYLING ==================== */
+        .quiz-option {
+            display: block;
+            width: 100%;
+            padding: 12px 15px;
+            margin: 8px 0;
+            background: var(--card-bg);
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            text-align: left;
+            cursor: pointer;
+            font-size: 0.95rem;
+        }
+
+        .quiz-option:hover {
+            border-color: var(--primary-color);
+        }
+
+        .quiz-option.correct {
+            background-color: #d4edda !important;
+            border-color: #28a745 !important;
+            color: #155724;
+        }
+
+        .quiz-option.wrong {
+            background-color: #f8d7da !important;
+            border-color: #dc3545 !important;
+            color: #721c24;
+        }
+
+        .feedback-box {
+            margin-top: 15px;
+            padding: 12px;
+            border-radius: 8px;
+            display: none;
+            font-size: 0.9rem;
+        }
+
+        /* ==================== BUTTONS & INPUTS ==================== */
+        .btn-primary {
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 1rem;
+            margin-top: 15px;
+            display: inline-block;
+        }
+
+        .btn-primary:hover {
+            background-color: var(--accent-color);
+        }
+
+        .btn-secondary {
+            background-color: var(--secondary-color);
+            color: #000;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-weight: bold;
+            margin: 5px;
+        }
+
+        input[type="text"], input[type="number"], select, textarea {
+            width: 100%;
+            padding: 10px;
+            margin: 8px 0 15px 0;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            background: var(--card-bg);
+            color: var(--text-color);
+        }
+
+        /* ==================== FOOTER NAV ==================== */
+        .nav-footer-btn {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 25px;
+            padding-top: 15px;
+            border-top: 1px solid #eee;
+        }
+
+        .score-badge {
+            font-size: 2rem;
+            font-weight: bold;
+            color: var(--primary-color);
+            text-align: center;
+            margin: 15px 0;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- HEADER -->
+    <header>
+        <div class="logo-area">
+            <h1>PAI IX: Iman Kepada Hari Akhir</h1>
+            <p>SMP / MTs Kelas 9</p>
+        </div>
+        <div class="nav-controls">
+            <button onclick="toggleDarkMode()">🌓 Mode Tampilan</button>
+        </div>
+    </header>
+
+    <!-- PROGRESS BAR -->
+    <div class="progress-container">
+        <div class="progress-bar" id="progressBar"></div>
+    </div>
+
+    <!-- MAIN CONTAINER -->
+    <div class="container">
+
+        <!-- NAVIGASI MENU UTAMA -->
+        <nav class="main-menu">
+            <button class="menu-btn active" onclick="showSection('beranda')">Beranda</button>
+            <button class="menu-btn" onclick="showSection('tujuan')">Tujuan</button>
+            <button class="menu-btn" onclick="showSection('materi')">Materi</button>
+            <button class="menu-btn" onclick="showSection('eksplorasi')">Eksplorasi</button>
+            <button class="menu-btn" onclick="showSection('kuis')">Kuis Interaktif</button>
+            <button class="menu-btn" onclick="showSection('refleksi')">Refleksi</button>
+            <button class="menu-btn" onclick="showSection('evaluasi')">Evaluasi</button>
+            <button class="menu-btn" onclick="showSection('sumber')">Sumber Belajar</button>
+        </nav>
+
+        <!-- 1. BERANDA -->
+        <section id="beranda" class="section active">
+            <div class="hero-card">
+                <h2>Selamat Datang di Media Pembelajaran Interaktif</h2>
+                <h1 style="color: var(--primary-color); margin: 10px 0;">Iman Kepada Hari Akhir</h1>
+                <p><strong>Mata Pelajaran:</strong> Pendidikan Agama Islam & Budi Pekerti</p>
+                <p><strong>Kelas:</strong> IX (Sembilan) SMP/MTs</p>
+                <hr style="margin: 15px 0; border: 0; border-top: 1px solid #ddd;">
+                <p><strong>Capaian Pembelajaran:</strong> Peserta didik memahami pengertian hari akhir dan tanda-tanda hari akhir serta dapat mengaplikasikannya dalam kehidupan sehari-hari.</p>
+                <br>
+                <button class="btn-primary" onclick="showSection('tujuan')">🚀 Mulai Belajar</button>
+            </div>
+        </section>
+
+        <!-- 2. TUJUAN PEMBELAJARAN -->
+        <section id="tujuan" class="section">
+            <h2>🎯 Tujuan Pembelajaran</h2>
+            <p>Setelah mempelajari modul interaktif ini, peserta didik diharapkan mampu:</p>
+            <ul style="margin-left: 20px; margin-top: 10px;">
+                <li>Menjelaskan pengertian iman kepada hari akhir secara komprehensif.</li>
+                <li>Menunjukkan dalil naqli tentang kepastian datangnya hari akhir.</li>
+                <li>Membedakan antara Kiamat Sugra (Kecil) dan Kiamat Kubra (Besar).</li>
+                <li>Mengidentifikasi tanda-tanda kiamat sugra dan kubra dalam kehidupan.</li>
+                <li>Menjelaskan alur kehidupan manusia setelah hari kiamat (Alam Barzakh hingga Surga/Neraka).</li>
+                <li>Meneladani hikmah beriman kepada hari akhir dalam pembentukan akhlak mulia.</li>
+            </ul>
+            <div class="nav-footer-btn">
+                <button class="btn-secondary" onclick="showSection('beranda')">Kembali</button>
+                <button class="btn-primary" onclick="showSection('materi')">Lanjut ke Materi ➔</button>
+            </div>
+        </section>
+
+        <!-- 3. MATERI PEMBELAJARAN -->
+        <section id="materi" class="section">
+            <h2>📖 Materi Pembelajaran Interaktif</h2>
+            <p>Klik tab di bawah ini untuk mempelajari setiap sub-topik:</p>
+
+            <div class="tab-buttons" style="margin-top: 15px;">
+                <button class="tab-btn active" onclick="showTab('tab1')">1. Pengertian & Dalil</button>
+                <button class="tab-btn" onclick="showTab('tab2')">2. Kiamat Sugra</button>
+                <button class="tab-btn" onclick="showTab('tab3')">3. Kiamat Kubra</button>
+                <button class="tab-btn" onclick="showTab('tab4')">4. Kehidupan Setelah Kiamat</button>
+                <button class="tab-btn" onclick="showTab('tab5')">5. Hikmah Beriman</button>
+            </div>
+
+            <!-- Tab 1 -->
+            <div id="tab1" class="tab-content active">
+                <h3>Pengertian Iman kepada Hari Akhir</h3>
+                <p>Iman kepada hari akhir merupakan <strong>Rukun Iman ke-5</strong>. Meyakini dengan sepenuh hati bahwa alam semesta beserta seluruh isinya akan hancur dan manusia akan dibangkitkan kembali untuk mempertanggungjawabkan amalnya.</p>
+                
+                <h4 style="margin-top: 15px;">Dalil Naqli:</h4>
+                <p><strong>Q.S. Al-Hajj [22]: 7</strong></p>
+                <div class="arabic-text">
+                    وَأَنَّ السَّاعَةَ آتِيَةٌ لَا رَيْبَ فِيهَا وَأَنَّ اللَّهَ يَبْعَثُ مَنْ فِي الْقُبُورِ
+                </div>
+                <p><em>Artinya: "Dan sungguh, (hari) Kiamat itu pasti datang, tidak ada keraguan padanya; dan sungguh, Allah akan membangkitkan siapa pun yang di dalam kubur."</em></p>
+            </div>
+
+            <!-- Tab 2 -->
+            <div id="tab2" class="tab-content">
+                <h3>Kiamat Sugra (Kiamat Kecil)</h3>
+                <p><strong>Pengertian:</strong> Hancurnya atau berakhirnya kehidupan sebagian makhluk atau alam kecil tertentu di dunia.</p>
+                <h4 style="margin-top: 10px;">Contoh Kiamat Sugra:</h4>
+                <ul>
+                    <li>Meninggal dunianya seorang manusia.</li>
+                    <li>Bencana alam lokal (gempa bumi, tsunami, gunung meletus, banjir).</li>
+                    <li>Merajalelanya kebodohan dalam ilmu agama & kejahatan.</li>
+                </ul>
+            </div>
+
+            <!-- Tab 3 -->
+            <div id="tab3" class="tab-content">
+                <h3>Kiamat Kubra (Kiamat Besar)</h3>
+                <p><strong>Pengertian:</strong> Hancurnya seluruh alam semesta beserta isinya secara total dan dimulainya kehidupan akhirat.</p>
+                <h4 style="margin-top: 10px;">Tanda-Tanda Kiamat Kubra:</h4>
+                <ul>
+                    <li>Terbitnya matahari dari arah sebelah barat.</li>
+                    <li>Munculnya Dajjal yang menyebarkan fitnah besar.</li>
+                    <li>Turunnya Nabi Isa a.s. untuk menegakkan keadilan.</li>
+                    <li>Munculnya Ya'juj dan Ma'juj.</li>
+                    <li>Keluarnya Dabbah (hewan melata ajaib yang dapat berbicara).</li>
+                    <li>Ditiupnya Sangkakala oleh Malaikat Israfil.</li>
+                </ul>
+            </div>
+
+            <!-- Tab 4 -->
+            <div id="tab4" class="tab-content">
+                <h3>Tahapan Kehidupan Setelah Hari Kiamat</h3>
+                <ol style="margin-left: 20px; line-height: 2;">
+                    <li><strong>Alam Barzakh (Alam Kubur):</strong> Pintu gerbang menuju akhirat.</li>
+                    <li><strong>Yaumul Ba'ats:</strong> Hari dibangkitkannya manusia dari kubur.</li>
+                    <li><strong>Yaumul Mahsyar:</strong> Hari berkumpulnya manusia di Padang Mahsyar.</li>
+                    <li><strong>Yaumul Hisab & Mizan:</strong> Hari perhitungan dan penimbangan amal perbuatan.</li>
+                    <li><strong>Sirat:</strong> Jembatan yang dibentangkan di atas neraka menuju surga.</li>
+                    <li><strong>Surga & Neraka:</strong> Tempat balasan terakhir bagi amal manusia.</li>
+                </ol>
+            </div>
+
+            <!-- Tab 5 -->
+            <div id="tab5" class="tab-content">
+                <h3>Hikmah Beriman kepada Hari Akhir</h3>
+                <ul>
+                    <li>Meningkatkan ketakwaan dan semangat beribadah kepada Allah Swt.</li>
+                    <li>Senantiasa berbuat baik, jujur, dan bertanggung jawab dalam kehidupan sehari-hari.</li>
+                    <li>Menjauhi maksiat karena sadar setiap perbuatan akan dihisab.</li>
+                    <li>Menjauhkan diri dari sifat sombong dan iri hati.</li>
+                    <li>Menggunakan waktu luang untuk hal-hal yang bermanfaat.</li>
+                </ul>
+            </div>
+
+            <div class="nav-footer-btn">
+                <button class="btn-secondary" onclick="showSection('tujuan')">Kembali</button>
+                <button class="btn-primary" onclick="showSection('eksplorasi')">Eksplorasi Interaktif ➔</button>
+            </div>
+        </section>
+
+        <!-- 4. EKSPLORASI INTERAKTIF -->
+        <section id="eksplorasi" class="section">
+            <h2>🎮 Eksplorasi Interaktif</h2>
+            <p>Uji pemahaman awalmu melalui aktivitas interaktif di bawah ini!</p>
+
+            <h3 style="margin-top: 20px;">1. Kelompokkan Tanda Kiamat!</h3>
+            <p><small>Klik item untuk memindahkannya ke kategori yang sesuai:</small></p>
+
+            <div class="drag-container">
+                <div class="drop-zone" id="sugraZone">
+                    <h4>Kiamat Sugra (Kecil)</h4>
+                    <div id="sugraItems"></div>
+                </div>
+                <div class="drop-zone" id="kubraZone">
+                    <h4>Kiamat Kubra (Besar)</h4>
+                    <div id="kubraItems"></div>
+                </div>
+            </div>
+
+            <div id="itemBank" style="margin-top: 15px; background: #eee; padding: 10px; border-radius: 8px;">
+                <strong>Pilihan Tanda Kiamat (Klik untuk mengelompokkan):</strong>
+                <div id="unassignedItems" style="display: flex; gap: 8px; flex-wrap: wrap; margin-top: 10px;">
+                    <span class="drag-item" onclick="classifyItem(this, 'sugra')">Meninggal Dunia</span>
+                    <span class="drag-item" onclick="classifyItem(this, 'kubra')">Matahari Terbit dari Barat</span>
+                    <span class="drag-item" onclick="classifyItem(this, 'sugra')">Bencana Tsunami</span>
+                    <span class="drag-item" onclick="classifyItem(this, 'kubra')">Munculnya Dajjal</span>
+                </div>
+            </div>
+
+            <h3 style="margin-top: 30px;">2. Kuis Singkat Benar / Salah</h3>
+            <div style="background: rgba(0,0,0,0.03); padding: 15px; border-radius: 8px; margin-top: 10px;">
+                <p><strong>Pernyataan:</strong> <em>"Yaumul Mizan adalah hari dibangkitkannya manusia dari dalam kubur."</em></p>
+                <div style="margin-top: 10px;">
+                    <button class="btn-secondary" onclick="checkTF(false, 'Jawaban Benar! Yaumul Mizan adalah hari penimbangan amal, sedangkan hari kebangkitan adalah Yaumul Ba\'ats.')">Benar</button>
+                    <button class="btn-secondary" onclick="checkTF(true, 'Tepat Sekali! Pernyataan tersebut Salah. Hari kebangkitan adalah Yaumul Ba\'ats.')">Salah</button>
+                </div>
+                <div id="tfFeedback" class="feedback-box"></div>
+            </div>
+
+            <div class="nav-footer-btn">
+                <button class="btn-secondary" onclick="showSection('materi')">Kembali</button>
+                <button class="btn-primary" onclick="showSection('kuis')">Lanjut ke Kuis Interaktif ➔</button>
+            </div>
+        </section>
+
+        <!-- 5. KUIS INTERAKTIF -->
+        <section id="kuis" class="section">
+            <h2>📝 Kuis Interaktif (15 Soal)</h2>
+            <p>Jawablah pertanyaan berikut dengan memilih jawaban yang paling tepat!</p>
+
+            <div id="quizContainer" style="margin-top: 20px;">
+                <div style="display: flex; justify-content: space-between; font-weight: bold; margin-bottom: 10px;">
+                    <span id="questionNum">Soal 1 dari 15</span>
+                    <span id="currentScoreDisplay">Skor: 0</span>
+                </div>
+
+                <h3 id="questionText" style="margin-bottom: 15px;">Teks Soal...</h3>
+                <div id="optionsContainer"></div>
+
+                <div id="quizFeedback" class="feedback-box"></div>
+
+                <button id="nextBtn" class="btn-primary" style="display: none; width: 100%; margin-top: 15px;" onclick="nextQuestion()">Soal Selanjutnya ➔</button>
+            </div>
+
+            <!-- Hasil Kuis -->
+            <div id="quizResult" style="display: none; text-align: center;">
+                <h3>🎉 Kuis Selesai!</h3>
+                <p>Berikut adalah hasil evaluasi kamu:</p>
+                <div class="score-badge" id="finalScoreText">0 / 100</div>
+                <p id="categoryText" style="font-size: 1.2rem; font-weight: bold;"></p>
+                <br>
+                <button class="btn-secondary" onclick="resetQuiz()">🔄 Ulangi Kuis</button>
+                <button class="btn-primary" onclick="showSection('refleksi')">Lanjut ke Refleksi & Evaluasi ➔</button>
+            </div>
+        </section>
+
+        <!-- 6. REFLEKSI -->
+        <section id="refleksi" class="section">
+            <h2>💭 Refleksi Diri</h2>
+            <p>Tuliskan jawaban singkat mengenai pemahaman dan sikap yang akan kamu terapkan:</p>
+
+            <label for="ref1">1. Apa hal terpenting yang kamu pahami tentang Hari Akhir?</label>
+            <textarea id="ref1" rows="3" placeholder="Tuliskan jawabanmu di sini..."></textarea>
+
+            <label for="ref2">2. Komitmen sikap/akhlak apa yang ingin kamu tingkatkan setelah mempelajari materi ini?</label>
+            <textarea id="ref2" rows="3" placeholder="Contoh: Lebih rajin sholat 5 waktu tepat waktu..."></textarea>
+
+            <div class="nav-footer-btn">
+                <button class="btn-secondary" onclick="showSection('kuis')">Kembali</button>
+                <button class="btn-primary" onclick="showSection('evaluasi')">Lanjut ke Evaluasi Akhir ➔</button>
+            </div>
+        </section>
+
+        <!-- 7. EVALUASI AKHIR & KIRIM DATA -->
+        <section id="evaluasi" class="section">
+            <h2>📋 Evaluasi & Pengiriman Hasil Belajar</h2>
+            <p>Isi identitas diri kamu untuk menyimpan hasil belajar ke Google Sheets Guru:</p>
+
+            <form id="evaluationForm" onsubmit="submitResults(event)">
+                <label for="nama">Nama Lengkap:</label>
+                <input type="text" id="nama" required placeholder="Masukkan Nama Lengkap">
+
+                <label for="kelas">Kelas:</label>
+                <select id="kelas" required>
+                    <option value="">-- Pilih Kelas --</option>
+                    <option value="9A">9A</option>
+                    <option value="9B">9B</option>
+                    <option value="9C">9C</option>
+                    <option value="9D">9D</option>
+                </select>
+
+                <label for="noAbsen">Nomor Absen:</label>
+                <input type="number" id="noAbsen" required placeholder="Contoh: 15">
+
+                <div style="background: rgba(0,0,0,0.03); padding: 15px; border-radius: 8px; margin: 15px 0;">
+                    <p><strong>Ringkasan Skor Kuis:</strong> <span id="evalScore">Belum Mengerjakan Kuis</span></p>
+                    <p><strong>Kategori Hasil:</strong> <span id="evalCategory">-</span></p>
+                </div>
+
+                <button type="submit" class="btn-primary" id="submitBtn" style="width: 100%;">📤 Kirim Hasil Belajar ke Google Sheets</button>
+            </form>
+
+            <button class="btn-secondary" onclick="window.print()" style="width: 100%; margin-top: 10px;">🖨️ Cetak / Simpan Ringkasan (PDF)</button>
+        </section>
+
+        <!-- 8. SUMBER BELAJAR -->
+        <section id="sumber" class="section">
+            <h2>📚 Sumber Belajar & Modul Pendukung</h2>
+            <p>Gunakan tautan di bawah ini untuk mengakses bahan ajar tambahan dan rekap data:</p>
+
+            <div style="margin-top: 20px; display: flex; flex-direction: column; gap: 15px;">
+                <!-- REPLACE GOOGLE DOCS LINK BELOW -->
+                <a id="googleDocsBtn" href="[TEMPEL LINK GOOGLE DOCS DI SINI]" target="_blank" class="btn-primary" style="text-align: center; text-decoration: none;">📄 Buka Modul Lengkap PAI (Google Docs)</a>
+                
+                <!-- REPLACE GOOGLE SHEETS LINK BELOW -->
+                <a id="googleSheetsBtn" href="[TEMPEL LINK GOOGLE SHEETS DI SINI]" target="_blank" class="btn-secondary" style="text-align: center; text-decoration: none; background: #28a745; color: white;">📊 Lihat Rekap Data Kelas (Google Sheets Guru)</a>
+            </div>
+        </section>
+
+    </div>
+
+    <!-- ==================== JAVASCRIPT LOGIC ==================== -->
+    <script>
+        // ==================== CONFIGURATION (PASTE URLS HERE) ====================
+        const GOOGLE_APPS_SCRIPT_URL = "[TEMPEL URL WEB APP GOOGLE APPS SCRIPT DI SINI]";
+        const GOOGLE_DOCS_URL = "[TEMPEL LINK GOOGLE DOCS DI SINI]";
+        const GOOGLE_SHEETS_URL = "[TEMPEL LINK GOOGLE SHEETS DI SINI]";
+
+        // Update link placeholders
+        document.getElementById('googleDocsBtn').href = GOOGLE_DOCS_URL;
+        document.getElementById('googleSheetsBtn').href = GOOGLE_SHEETS_URL;
+
+        // ==================== STATE MANAGEMENT ====================
+        let currentSection = 'beranda';
+        let quizScore = 0;
+        let currentQuestionIdx = 0;
+        let userAnswers = [];
+        let startTime = new Date();
+
+        // 15 SOAL KUIS PAI KELAS 9
+        const quizQuestions = [
+            {
+                q: "Iman kepada hari akhir merupakan rukun iman yang ke-...",
+                options: ["Ketiga", "Keempat", "Kelima", "Keenam"],
+                answer: 2,
+                explanation: "Iman kepada Hari Akhir adalah rukun iman ke-5 setelah iman kepada Kitab-Kitab Allah Swt."
+            },
+            {
+                q: "Meyakini dengan sepenuh hati bahwa alam semesta beserta isinya akan hancur disebut...",
+                options: ["Iman kepada Malaikat", "Iman kepada Qada dan Qadar", "Iman kepada Hari Akhir", "Iman kepada Rasul"],
+                answer: 2,
+                explanation: "Pengertian iman kepada hari akhir adalah meyakini berakhirnya seluruh kehidupan alam dunia."
+            },
+            {
+                q: "Peristiwa hancurnya sebagian alam atau meninggalnya seorang manusia disebut...",
+                options: ["Kiamat Kubra", "Kiamat Sugra", "Yaumul Mahsyar", "Yaumul Ba'ats"],
+                answer: 1,
+                explanation: "Kiamat Sugra adalah kiamat kecil seperti kematian atau bencana alam lokal."
+            },
+            {
+                q: "Berikut ini yang merupakan contoh dari kiamat kubra adalah...",
+                options: ["Bencana gempa bumi", "Terbitnya matahari dari barat", "Meninggalnya seseorang", "Merajalelanya kejahatan"],
+                answer: 1,
+                explanation: "Terbitnya matahari dari barat adalah tanda besar (Kubra) kiamat yang menandai ditutupnya pintu taubat."
+            },
+            {
+                q: "Malaikat yang bertugas meniup sangkakala tanda datangnya hari kiamat adalah...",
+                options: ["Malaikat Jibril", "Malaikat Mikail", "Malaikat Israfil", "Malaikat Izrail"],
+                answer: 2,
+                explanation: "Malaikat Israfil bertugas meniup sangkakala pada hari kiamat dan hari kebangkitan."
+            },
+            {
+                q: "Hari dibangkitkannya seluruh manusia dari dalam kubur dinamakan...",
+                options: ["Yaumul Ba'ats", "Yaumul Hisab", "Yaumul Mizan", "Yaumul Mahsyar"],
+                answer: 0,
+                explanation: "Yaumul Ba'ats berarti hari kebangkitan manusia dari alam kubur."
+            },
+            {
+                q: "Padang yang sangat luas tempat dikumpulkannya seluruh manusia setelah dibangkitkan adalah...",
+                options: ["Padang Arafah", "Padang Mahsyar", "Surga Adn", "Alam Barzakh"],
+                answer: 1,
+                explanation: "Padang Mahsyar adalah tempat berkumpulnya seluruh manusia untuk menunggu pengadilan Allah."
+            },
+            {
+                q: "Tahapan perhitungan seluruh amal perbuatan manusia selama hidup di dunia dinamakan...",
+                options: ["Yaumul Mizan", "Yaumul Hisab", "Yaumul Ba'ats", "Yaumul Jaza'"],
+                answer: 1,
+                explanation: "Hisab berarti perhitungan amal perbuatan manusia."
+            },
+            {
+                q: "Penimbangan amal baik dan amal buruk manusia secara adil disebut...",
+                options: ["Yaumul Hisab", "Yaumul Mizan", "Sirat", "Barzakh"],
+                answer: 1,
+                explanation: "Mizan berarti timbangan amal perbuatan manusia."
+            },
+            {
+                q: "Jembatan yang dibentangkan di atas neraka menuju surga dinamakan...",
+                options: ["Sirat", "Mizan", "Mahsyar", "Barzakh"],
+                answer: 0,
+                explanation: "Sirat adalah jembatan penentu yang harus dilalui setiap manusia."
+            },
+            {
+                q: "Salah satu tanda-tanda kecil (Sugra) kiamat yang sering kita jumpai adalah...",
+                options: ["Munculnya Dajjal", "Keluarnya Dabbah", "Banyaknya orang bodoh mengaku berilmu & merajalelanya maksiat", "Turunnya Nabi Isa a.s."],
+                answer: 2,
+                explanation: "Merajalelanya maksiat dan hilangnya ilmu agama adalah tanda kiamat sugra."
+            },
+            {
+                q: "Sikap yang mencerminkan penghayatan iman kepada hari akhir dalam kehidupan sehari-hari adalah...",
+                options: ["Menunda-nunda ibadah", "Selalu berbuat baik dan rajin beribadah", "Sombong atas harta kekayaan", "Takut berlebihan tanpa berbuat baik"],
+                answer: 1,
+                explanation: "Iman kepada hari akhir mendorong kita berbuat baik dan meningkatkan ketaatan."
+            },
+            {
+                q: "Surah Al-Hajj ayat 7 menerangkan tentang...",
+                options: ["Kepastian datangnya hari kiamat", "Perintah berpuasa", "Kewajiban zakat", "Kisah Nabi Isa a.s."],
+                answer: 0,
+                explanation: "QS. Al-Hajj ayat 7 menegaskan bahwa kiamat itu pasti datang tanpa keraguan."
+            },
+            {
+                q: "Alam yang menjadi pembatas antara alam dunia dan alam akhirat adalah...",
+                options: ["Padang Mahsyar", "Alam Barzakh", "Surga", "Neraka"],
+                answer: 1,
+                explanation: "Alam Barzakh atau alam kubur adalah tempat persinggahan sementara sebelum hari kebangkitan."
+            },
+            {
+                q: "Hikmah beriman kepada hari akhir yang berhubungan dengan penggunaan waktu adalah...",
+                options: ["Mengabaikan tugas sekolah", "Memanfaatkan waktu luang untuk hal-hal yang positif dan bermanfaat", "Tidur seharian", "Bermain game tanpa batas"],
+                answer: 1,
+                explanation: "Seseorang yang beriman sadar setiap detiknya akan dipertanggungjawabkan."
+            }
+        ];
+
+        // ==================== NAVIGATION LOGIC ====================
+        function showSection(sectionId) {
+            document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+            document.querySelectorAll('.menu-btn').forEach(b => b.classList.remove('active'));
+            
+            document.getElementById(sectionId).classList.add('active');
+            currentSection = sectionId;
+
+            // Update Active Menu Button
+            const btns = document.querySelectorAll('.menu-btn');
+            btns.forEach(btn => {
+                if(btn.textContent.toLowerCase().includes(sectionId)) btn.classList.add('active');
+            });
+
+            updateProgressBar();
+        }
+
+        function showTab(tabId) {
+            document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+            document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+
+            event.target.classList.add('active');
+            document.getElementById(tabId).classList.add('active');
+        }
+
+        function toggleDarkMode() {
+            document.body.classList.toggle('dark-mode');
+        }
+
+        function updateProgressBar() {
+            const sections = ['beranda', 'tujuan', 'materi', 'eksplorasi', 'kuis', 'refleksi', 'evaluasi', 'sumber'];
+            const idx = sections.indexOf(currentSection);
+            const progress = ((idx + 1) / sections.length) * 100;
+            document.getElementById('progressBar').style.width = progress + '%';
+        }
+
+        // ==================== INTERACTIVE EXPLORATION ====================
+        function classifyItem(element, targetCategory) {
+            if (targetCategory === 'sugra') {
+                document.getElementById('sugraItems').appendChild(element);
+            } else {
+                document.getElementById('kubraItems').appendChild(element);
+            }
+        }
+
+        function checkTF(isCorrect, message) {
+            const fb = document.getElementById('tfFeedback');
+            fb.style.display = 'block';
+            fb.style.backgroundColor = isCorrect ? '#d4edda' : '#f8d7da';
+            fb.style.color = isCorrect ? '#155724' : '#721c24';
+            fb.innerHTML = message;
+        }
+
+        // ==================== QUIZ LOGIC ====================
+        function loadQuestion() {
+            const q = quizQuestions[currentQuestionIdx];
+            document.getElementById('questionNum').innerText = `Soal ${currentQuestionIdx + 1} dari ${quizQuestions.length}`;
+            document.getElementById('questionText').innerText = q.q;
+            
+            const optionsDiv = document.getElementById('optionsContainer');
+            optionsDiv.innerHTML = '';
+
+            document.getElementById('quizFeedback').style.display = 'none';
+            document.getElementById('nextBtn').style.display = 'none';
+
+            q.options.forEach((opt, idx) => {
+                const btn = document.createElement('button');
+                btn.className = 'quiz-option';
+                btn.innerText = `${String.fromCharCode(65 + idx)}. ${opt}`;
+                btn.onclick = () => selectAnswer(idx);
+                optionsDiv.appendChild(btn);
+            });
+        }
+
+        function selectAnswer(selectedIdx) {
+            const q = quizQuestions[currentQuestionIdx];
+            const options = document.querySelectorAll('.quiz-option');
+
+            // Disable all options
+            options.forEach(opt => opt.onclick = null);
+
+            const fb = document.getElementById('quizFeedback');
+            fb.style.display = 'block';
+
+            if (selectedIdx === q.answer) {
+                options[selectedIdx].classList.add('correct');
+                quizScore += Math.round(100 / quizQuestions.length);
+                fb.style.backgroundColor = '#d4edda';
+                fb.style.color = '#155724';
+                fb.innerHTML = `<strong>Benar!</strong> ${q.explanation}`;
+            } else {
+                options[selectedIdx].classList.add('wrong');
+                options[q.answer].classList.add('correct');
+                fb.style.backgroundColor = '#f8d7da';
+                fb.style.color = '#721c24';
+                fb.innerHTML = `<strong>Kurang Tepat!</strong> Jawaban yang benar adalah ${String.fromCharCode(65 + q.answer)}. ${q.explanation}`;
+            }
+
+            document.getElementById('currentScoreDisplay').innerText = `Skor: ${quizScore}`;
+            document.getElementById('nextBtn').style.display = 'block';
+        }
+
+        function nextQuestion() {
+            currentQuestionIdx++;
+            if (currentQuestionIdx < quizQuestions.length) {
+                loadQuestion();
+            } else {
+                showQuizResults();
+            }
+        }
+
+        function showQuizResults() {
+            document.getElementById('quizContainer').style.display = 'none';
+            document.getElementById('quizResult').style.display = 'block';
+
+            // Ensure score max is 100
+            if (quizScore > 100) quizScore = 100;
+
+            document.getElementById('finalScoreText').innerText = `${quizScore} / 100`;
+
+            let category = '';
+            if (quizScore >= 90) category = 'Sangat Baik (Mumtaz)';
+            else if (quizScore >= 80) category = 'Baik (Jayyid)';
+            else if (quizScore >= 70) category = 'Cukup (Maqbul)';
+            else category = 'Perlu Belajar Lagi';
+
+            document.getElementById('categoryText').innerText = `Kategori: ${category}`;
+
+            // Update Evaluasi Summary
+            document.getElementById('evalScore').innerText = `${quizScore} / 100`;
+            document.getElementById('evalCategory').innerText = category;
+        }
+
+        function resetQuiz() {
+            quizScore = 0;
+            currentQuestionIdx = 0;
+            document.getElementById('currentScoreDisplay').innerText = `Skor: 0`;
+            document.getElementById('quizContainer').style.display = 'block';
+            document.getElementById('quizResult').style.display = 'none';
+            loadQuestion();
+        }
+
+        // ==================== GOOGLE SHEETS INTEGRATION ====================
+        function submitResults(e) {
+            e.preventDefault();
+
+            const nama = document.getElementById('nama').value;
+            const kelas = document.getElementById('kelas').value;
+            const noAbsen = document.getElementById('noAbsen').value;
+            const category = document.getElementById('evalCategory').innerText;
+            const submitBtn = document.getElementById('submitBtn');
+
+            if (GOOGLE_APPS_SCRIPT_URL.includes("[TEMPEL")) {
+                alert("Guru belum mengatur URL Google Apps Script! Silakan hubungi guru PAI Anda.");
+                return;
+            }
+
+            submitBtn.disabled = true;
+            submitBtn.innerText = "⏳ Mengirim Data...";
+
+            const durationMinutes = Math.round((new Date() - startTime) / 60000);
+
+            const payload = {
+                nama: nama,
+                kelas: kelas,
+                no_absen: noAbsen,
+                skor: quizScore,
+                total_soal: quizQuestions.length,
+                kategori: category,
+                waktu_pengerjaan: `${durationMinutes} menit`,
+                timestamp: new Date().toLocaleString("id-ID")
+            };
+
+            fetch(GOOGLE_APPS_SCRIPT_URL, {
+                method: "POST",
+                mode: "no-cors",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(payload)
+            })
+            .then(() => {
+                alert("✅ Selamat! Data hasil belajar kamu berhasil dikirim ke Google Sheets Guru.");
+                submitBtn.disabled = false;
+                submitBtn.innerText = "✅ Data Terkirim";
+            })
+            .catch(err => {
+                alert("❌ Gagal mengirim data. Pastikan koneksi internet terhubung.");
+                console.error(err);
+                submitBtn.disabled = false;
+                submitBtn.innerText = "📤 Coba Kirim Lagi";
+            });
+        }
+
+        // Initialize Quiz on load
+        window.onload = function() {
+            loadQuestion();
+        };
+    </script>
+</body>
+</html>
